@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Pass/Fail</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <h1>Functions &amp; validation</h1>
+
+  <form id="form1" action="#" onsubmit="return  validateForm(this);">
+    first name: <input type="text" name="firstname"><br>
+    last name: <input type="text" name="lastname"><br>
+    password: <input type="text" name="password"><br>
+
+    <button>Check</button>
+  </form>
+
+  <hr>
+  <div id="message"></div>
+
+  <script>
+    const validatePassword = (password) => {
+      if (password.length < 1) {
+        document.getElementById('message').append('Password is required field , try submitting again.')
+        return false
+      }
+      if (password.length > 1 && password.length < 8) {
+        document.getElementById('message').append('Password must be more than eight character, please provide a valid password. ')
+        return false
+      }
+      if (password.length > 7) {
+        var uppercaseRegex = /[A-Z]/;
+        var lowercaseRegex = /[a-z]/;
+        if (!uppercaseRegex.test(password)) {
+          document.getElementById('message').append('Password should contain at least one uppercase letter')
+          return false
+        }
+        if (!lowercaseRegex.test(password)) {
+          document.getElementById('message').append('Password should contain at least one lowercase letter')
+          return false
+        }
+
+      }
+      return true
+
+    }
+    const validateForm = (myForm) => {
+      var firstname = myForm.firstname.value;
+      var lastname = myForm.lastname.value;
+      var password = myForm.password.value;
+
+      if (firstname.length < 1) {
+        document.getElementById('message').append('First name is required filed , try submitting again.   ')
+      }
+      if (lastname.length < 1) {
+        document.getElementById('message').append('Last name is required field , try submitting again .   ')
+      }
+      var x = validatePassword(password)
+      console.log(x)
+      if (x === true && firstname.length > 1 && lastname.length > 1) {
+        document.getElementById('message').append('User Successfuly creates account.')
+      }
+      return false;
+    }
+
+  </script>
+
+
+</body>
+
+</html>
